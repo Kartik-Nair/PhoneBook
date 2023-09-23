@@ -55,4 +55,9 @@ class Contact:
         self.address = address
         self.update_time=datetime.now()
 
-#new = Contact("kartik","nair","3439873198")
+    def print_contact(self):
+        print("First Name: ",self.get_first_name())
+        print("Last Name: ",self.get_last_name())
+        print("Phone Number: ",self.get_phone_number())
+        print("Email Address: ",self.get_email_address())
+        print("Address: ",self.get_address())
