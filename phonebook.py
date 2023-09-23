@@ -51,9 +51,10 @@ class Phonebook:
     def update_contact(self):
         first_name = input("Enter first name of contact to be updated: ")
         last_name = input("Enter last name of contact to be updated: ")
-        self.print_all_contacts()
+        found_contact=False
         for contact in self.contacts:
             if contact.get_first_name()==first_name and contact.get_last_name()==last_name:
+                found_contact=True
                 print("Fields: \n 0. First Name \n 1. Last Name \n 2. Phone Number \n 3. Email Address \n 4. Address")
                 user_input = input("Enter which field you want to update: ")
                 if user_input=="0":
@@ -74,18 +75,39 @@ class Phonebook:
                 else:
                     print("Please enter a valid option!")
                 self.print_all_contacts()
-            else:
-                print("Contact doesn't exist, please check if you have entered the correct first and last name")
+            
+        if found_contact==False:
+                print("Contact does not exist, please check the first and last name you entered.")
 
         
-
+    """
+    Method for deleting existing contact from the contact list
+    """
     def delete_contact(self):
-        pass
+        first_name = input("Enter first name of contact to be deleted: ")
+        last_name = input("Enter last name of contact to be deleted: ")
+        found_contact=False
 
+        for contact in self.contacts:
+            if contact.get_first_name()==first_name and contact.get_last_name()==last_name:
+                found_contact=True
+                self.contacts.remove(contact)
+                print("Contact deleted successfully!")
+            
+        if found_contact==False:
+                print("Contact does not exist, please check the first and last name you entered.")
+
+
+    """
+    Method to print all contacts currently in the contact list
+    """
     def print_all_contacts(self):
         counter = 0
-        print("\n Full Contact List: ")
-        for contact in self.contacts:
-            print("Contact no.: ", counter)
-            contact.print_contact()
-            print("\n \n")
+        if(self.contacts.count==0):
+            print("Contact list is empty, please add new contacts.")
+        else:
+            print("\nFull Contact List: ")
+            for contact in self.contacts:
+                print("Contact id: ", counter)
+                contact.print_contact()
+                print("\n \n")
