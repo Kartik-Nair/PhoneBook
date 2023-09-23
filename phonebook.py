@@ -11,8 +11,23 @@ class Phonebook:
     Method for searching contacts using given fields
     """
     def search_contacts(self):
-        print("Fields: \n 0. First Name \n 1. Last Name \n 2. Phone Number \n 3. Email Address")
-        user_input = input("Please enter by which field you want to search contact: ")
+        user_input = input("To search for contacts, start entering characters below and press enter to see results: \n")
+        temp_contact_list = [Contact]*0
+        counter = 0
+
+        print("Below is a list of matching results: \n")
+        for contact in self.contacts:
+            if (user_input in contact.get_first_name() 
+                or user_input in contact.get_last_name() 
+                or user_input in contact.get_phone_number() 
+                or user_input in contact.get_email_address() 
+                or user_input in contact.get_address()):
+
+                print("Contact id: ", counter)
+                contact.print_contact()
+                counter+=1
+                print("\n \n")
+
 
         
     """

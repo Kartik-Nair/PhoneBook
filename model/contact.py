@@ -15,7 +15,7 @@ class Contact:
         self.update_time=datetime.now()
 
     def get_first_name(self):
-        return self.first_name
+        return str(self.first_name)
     
     def get_last_name(self):
         return self.last_name
@@ -60,3 +60,5 @@ class Contact:
         print("Phone Number: ",self.get_phone_number())
         print("Email Address: ",self.get_email_address())
         print("Address: ",self.get_address())
+        print("Created on: ", self.create_time)
+        print("Last updated on: ", self.update_time)
