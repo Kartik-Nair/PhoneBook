@@ -1,4 +1,5 @@
 from model.contact import Contact
+import csv
 
 class Phonebook:
 
@@ -19,30 +20,69 @@ class Phonebook:
     """
     def create_contact(self):
         print("Creating contact...")
-        first_name = input("Enter first name: ")
-        last_name = input("Enter last name: ")
-        phone_number = input("Enter phone number: ")
 
-        email_address = input("Enter email address, press enter to skip: ")
-        if email_address=="": email_address=None
+        print("Options: \n 0. Enter individual contact manually \n 1. Load contacts in batch from csv file")
+
+        batch_load = input("How do you want to add contact: ")
+
+        if batch_load=="0":
+            first_name = input("Enter first name: ")
+            last_name = input("Enter last name: ")
+            phone_number = input("Enter phone number: ")
+
+            email_address = input("Enter email address, press enter to skip: ")
+            if email_address=="": email_address=None
+            
+            address = input("Enter address, press enter to skip: ")
+            if address=="": address=None
+
+            contact_exists=False
+
+            for contact in self.contacts:
+                if contact.get_first_name()==first_name and contact.get_last_name()==last_name:
+                    contact_exists=True
+            
+            if contact_exists==True:
+                print("Contact already exists! Please check the contact details and delete or update it as per your need.")
+
+            else:
+                new_contact = Contact(first_name,last_name,phone_number,email_address,address)
+                self.contacts.append(new_contact)
+                print("Contact added successfully!")
+                self.print_all_contacts()
         
-        address = input("Enter address, press enter to skip: ")
-        if address=="": address=None
+        elif batch_load=="1":
+            
+            file_name = input("Enter the file name you want to load from the data folder:")
+            csv_file_path = "data/"+file_name
 
-        contact_exists=False
+            with open(csv_file_path, mode='r', newline='') as file:
+                csv_reader = csv.reader(file)
 
-        for contact in self.contacts:
-            if contact.get_first_name()==first_name and contact.get_last_name()==last_name:
-                contact_exists=True
-        
-        if contact_exists==True:
-            print("Contact already exists! Please check the contact details and delete or update it as per your need.")
+                for contact in csv_reader:
 
-        else:
-            new_contact = Contact(first_name,last_name,phone_number,email_address,address)
-            self.contacts.append(new_contact)
-            print("Contact added successfully!")
-            self.print_all_contacts()
+                    first_name = contact[0]
+                    last_name = contact[1]
+                    phone_number = contact[2]
+                    email_address = contact[3]
+                    address = contact[4]
+
+                    contact_exists=False
+
+                    for contact in self.contacts:
+                        if contact.get_first_name()==first_name and contact.get_last_name()==last_name:
+                            contact_exists=True
+                    
+                    if contact_exists==True:
+                        print("Contact with first name: ", first_name, " and last name: ", last_name + 
+                              " already exists! Please check the contact details and delete or update it as per your need.")
+
+                    else:
+                        new_contact = Contact(first_name,last_name,phone_number,email_address,address)
+                        self.contacts.append(new_contact)
+
+                print("Contacts added successfully from csv file in batch")
+                self.print_all_contacts()
 
 
     """
@@ -110,4 +150,5 @@ class Phonebook:
             for contact in self.contacts:
                 print("Contact id: ", counter)
                 contact.print_contact()
+                counter+=1
                 print("\n \n")

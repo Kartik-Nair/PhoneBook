@@ -6,7 +6,6 @@ class Contact:
     update_time=0
 
     def __init__(self, first_name, last_name, phone_number, email_address, address):
-        print("Creating new contact...")
         self.first_name = first_name
         self.last_name = last_name
         self.phone_number = phone_number
