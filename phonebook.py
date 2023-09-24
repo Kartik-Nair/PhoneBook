@@ -1,4 +1,6 @@
 from model.contact import Contact
+from datetime import datetime
+
 import csv
 
 class Phonebook:
@@ -11,23 +13,43 @@ class Phonebook:
     Method for searching contacts using given fields
     """
     def search_contacts(self):
-        user_input = input("To search for contacts, start entering characters below and press enter to see results: \n")
-        temp_contact_list = [Contact]*0
-        counter = 0
+        choice = input("Options: \n 0. Search with name or phone number \n " + 
+                       "1. Search for contacts added within specific time frame \n How do you want to search for the contact: ")
+        
+        if choice == "0":
+            user_input = input("To search for contacts, start entering characters below and press enter to see results: \n")
+            counter = 0
 
-        print("Below is a list of matching results: \n")
-        for contact in self.contacts:
-            if (user_input in contact.get_first_name() 
-                or user_input in contact.get_last_name() 
-                or user_input in contact.get_phone_number() 
-                or user_input in contact.get_email_address() 
-                or user_input in contact.get_address()):
+            print("Below is a list of matching results: \n")
+            for contact in self.contacts:
+                if (user_input in contact.get_first_name() 
+                    or user_input in contact.get_last_name() 
+                    or user_input in contact.get_phone_number() 
+                    or user_input in contact.get_email_address() 
+                    or user_input in contact.get_address()):
 
+                    print("Contact id: ", counter)
+                    contact.print_contact()
+                    counter+=1
+                    print("\n \n")
+
+        elif choice == "1":
+            start_date = input("Please enter start date in yyyy/MM/dd format: ")
+            end_date = input("Please enter end date in yyyy/MM/dd format: ")
+            start_time=datetime(*[int(i) for i in start_date.split('/')])
+            end_time=datetime(*[int(i) for i in end_date.split('/')]).replace(hour=23,minute=59,second=59)
+            print("Start time: ", start_time)
+            print("End Time: ", end_time)
+            filtered_contacts = [filtered_contact for filtered_contact in self.contacts if start_time <= filtered_contact.create_time <= end_time]
+            
+            print("\nBelow is a list of matching results: \n")
+            counter = 0
+
+            for contact in filtered_contacts:
                 print("Contact id: ", counter)
                 contact.print_contact()
                 counter+=1
                 print("\n \n")
-
 
         
     """
@@ -183,3 +205,7 @@ class Phonebook:
 
         if found_contact==False:
                 print("Contact does not exist, please check the first and last name you entered.")
+
+    
+    def sort_contacts(self):
+        user_input=input("How do you want to sort, enter :")
