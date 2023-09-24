@@ -170,3 +170,16 @@ class Phonebook:
                 contact.print_contact()
                 counter+=1
                 print("\n \n")
+
+
+    def print_contact_history(self):
+        first_name = input("Enter first name of contact to be updated: ")
+        last_name = input("Enter last name of contact to be updated: ")
+        found_contact=False
+        for contact in self.contacts:
+            if contact.get_first_name()==first_name and contact.get_last_name()==last_name:
+                found_contact=True
+                print("Contact History: ", contact.get_contact_history())
+
+        if found_contact==False:
+                print("Contact does not exist, please check the first and last name you entered.")

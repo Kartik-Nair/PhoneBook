@@ -5,7 +5,7 @@ def main():
     while True:
         
         print("Main Menu: \n 0. Search Contacts \n 1. Add Contacts \n" + 
-              " 2. Update Contacts \n 3. Delete Contacts \n 4. View All Contacts \n 5. Exit")
+              " 2. Update Contacts \n 3. Delete Contacts \n 4. View All Contacts \n 5. Print Contact History \n 6. Exit")
         user_input = input("Please enter your option here: ")
 
         if user_input == "0":
@@ -19,6 +19,8 @@ def main():
         elif user_input == "4":
             phonebook.print_all_contacts()
         elif user_input == "5":
+            phonebook.print_contact_history()
+        elif user_input == "6":
             break
         else:
             print("Please enter a valid option!")
