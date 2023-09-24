@@ -51,6 +51,9 @@ class Phonebook:
                 counter+=1
                 print("\n \n")
 
+        else:
+            print("Please enter a valid option")
+
         
     """
     Method for creating new contact
@@ -208,4 +211,19 @@ class Phonebook:
 
     
     def sort_contacts(self):
-        user_input=input("How do you want to sort, enter :")
+        choice=input("\n\nOptions: \n0. Ascending order \n1. Descending order \n\nHow do you want to sort: ")
+        
+        if choice=="0":
+            self.contacts.sort(key=lambda contact: contact.get_first_name())
+            print("Contacts sorted in ascending order. Press 4 to view all contacts.")
+        elif choice=="1":
+            self.contacts.sort(key=lambda contact: contact.get_first_name(), reverse=True)
+            print("Contacts sorted in descending order. Press 4 to view all contacts.")
+        else:
+            print("Please enter a valid option")
+
+
+    def group_contacts(self):
+        print("Grouping contacts by initial letter of last name")
+        self.contacts.sort(key=lambda contact:contact.get_last_name()[0] )
+        print("Contacts successfully grouped. Press 4 to view all contacts.")
