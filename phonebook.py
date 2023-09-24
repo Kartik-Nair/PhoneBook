@@ -67,8 +67,8 @@ class Phonebook:
                 self.print_all_contacts()
         
         elif batch_load=="1":
-            
-            file_name = input("Enter the file name you want to load from the data folder:")
+            print("We have sample_contacts.csv file already present in data folder. You can copy your required csv file to that path first.")
+            file_name = input("Now enter the file name you want to load from the data folder:")
             csv_file_path = "data/"+file_name
 
             with open(csv_file_path, mode='r', newline='') as file:
@@ -98,6 +98,9 @@ class Phonebook:
 
                 print("Contacts added successfully from csv file in batch")
                 self.print_all_contacts()
+
+        else:
+            print("Please enter a valid option!")
 
 
     """
