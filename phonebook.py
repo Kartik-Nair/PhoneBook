@@ -77,10 +77,10 @@ class Phonebook:
             last_name = input("Enter last name: ")
 
             while True:
-                phone_number = input("Enter phone number in (XXX XXX-XXXX : ")
+                phone_number = input("Enter phone number in (XXX) XXX-XXXX format : ")
 
                 if self.validate_phone_number(phone_number)==False:
-                    print("Please enter a valid phone number.") 
+                    print("Please enter a valid phone number. Make sure format is (XXX) XXX-XXXX") 
                     continue
                 else:
                     break
@@ -129,12 +129,12 @@ class Phonebook:
 
                         phone_number = contact[2]
                         if self.validate_phone_number(phone_number)==False:
-                            print("Phone number: ", phone_number, " is not valid, exiting csv file. Please try again after fixing the value in csv file.") 
+                            print("Phone number: ", phone_number, " is not valid format (XXX) XXX-XXXX, exiting csv file. Please try again after fixing the value in csv file.") 
                             return
                         
                         email_address = contact[3]
-                        if self.validate_email_address(email_address)==False:
-                            print("Email address: ", email_address, " is not valid, mexiting csv file. Please try again after fixing the value in csv file.") 
+                        if email_address!="" and self.validate_email_address(email_address)==False:
+                            print("Email address: ", email_address, " is not valid format, exiting csv file. Please try again after fixing the value in csv file.") 
                             return
 
                         address = contact[4]
