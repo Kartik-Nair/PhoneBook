@@ -1,5 +1,6 @@
 from model.contact import Contact
 from datetime import datetime
+import re
 
 import csv
 
@@ -36,8 +37,14 @@ class Phonebook:
         elif choice == "1":
             start_date = input("Please enter start date in yyyy/MM/dd format: ")
             end_date = input("Please enter end date in yyyy/MM/dd format: ")
-            start_time=datetime(*[int(i) for i in start_date.split('/')])
-            end_time=datetime(*[int(i) for i in end_date.split('/')]).replace(hour=23,minute=59,second=59)
+            while True:
+
+                try:
+                    start_time=datetime(*[int(i) for i in start_date.split('/')])
+                    end_time=datetime(*[int(i) for i in end_date.split('/')]).replace(hour=23,minute=59,second=59)
+                    break
+                except:
+                    print("Please enter a valid date")
             print("Start time: ", start_time)
             print("End Time: ", end_time)
             filtered_contacts = [filtered_contact for filtered_contact in self.contacts if start_time <= filtered_contact.create_time <= end_time]
@@ -68,10 +75,26 @@ class Phonebook:
         if batch_load=="0":
             first_name = input("Enter first name: ")
             last_name = input("Enter last name: ")
-            phone_number = input("Enter phone number: ")
 
-            email_address = input("Enter email address, press enter to skip: ")
-            if email_address=="": email_address=None
+            while True:
+                phone_number = input("Enter phone number in (XXX XXX-XXXX : ")
+
+                if self.validate_phone_number(phone_number)==False:
+                    print("Please enter a valid phone number.") 
+                    continue
+                else:
+                    break
+            
+            while True:
+                email_address = input("Enter email address, press enter to skip: ")
+                if email_address=="": email_address=None
+
+           
+                if self.validate_email_address(email_address)==False:
+                    print("Please enter a valid email address.") 
+                    continue
+                else:
+                    break
             
             address = input("Enter address, press enter to skip: ")
             if address=="": address=None
@@ -95,37 +118,68 @@ class Phonebook:
             print("We have sample_contacts.csv file already present in data folder. You can copy your required csv file to that path first.")
             file_name = input("Now enter the file name you want to load from the data folder:")
             csv_file_path = "data/"+file_name
+            try:
+                with open(csv_file_path, mode='r', newline='') as file:
+                    csv_reader = csv.reader(file)
 
-            with open(csv_file_path, mode='r', newline='') as file:
-                csv_reader = csv.reader(file)
+                    for contact in csv_reader:
 
-                for contact in csv_reader:
+                        first_name = contact[0]
+                        last_name = contact[1]
 
-                    first_name = contact[0]
-                    last_name = contact[1]
-                    phone_number = contact[2]
-                    email_address = contact[3]
-                    address = contact[4]
+                        phone_number = contact[2]
+                        if self.validate_phone_number(phone_number)==False:
+                            print("Phone number: ", phone_number, " is not valid, exiting csv file. Please try again after fixing the value in csv file.") 
+                            return
+                        
+                        email_address = contact[3]
+                        if self.validate_email_address(email_address)==False:
+                            print("Email address: ", email_address, " is not valid, mexiting csv file. Please try again after fixing the value in csv file.") 
+                            return
 
-                    contact_exists=False
+                        address = contact[4]
 
-                    for contact in self.contacts:
-                        if contact.get_first_name()==first_name and contact.get_last_name()==last_name:
-                            contact_exists=True
-                    
-                    if contact_exists==True:
-                        print("Contact with first name: ", first_name, " and last name: ", last_name + 
-                              " already exists! Please check the contact details and delete or update it as per your need.")
+                        contact_exists=False
 
-                    else:
-                        new_contact = Contact(first_name,last_name,phone_number,email_address,address)
-                        self.contacts.append(new_contact)
+                        for contact in self.contacts:
+                            if contact.get_first_name()==first_name and contact.get_last_name()==last_name:
+                                contact_exists=True
+                        
+                        if contact_exists==True:
+                            print("Contact with first name: ", first_name, " and last name: ", last_name + 
+                                " already exists! Please check the contact details and delete or update it as per your need.")
 
-                print("Contacts added successfully from csv file in batch")
-                self.print_all_contacts()
+                        else:
+                            new_contact = Contact(first_name,last_name,phone_number,email_address,address)
+                            self.contacts.append(new_contact)
+
+                    print("Contacts added successfully from csv file in batch")
+                    self.print_all_contacts()
+            except:
+                print("Error opening the file, please check the file name.")
 
         else:
             print("Please enter a valid option!")
+
+
+    def validate_phone_number(self, phone_number):
+        
+        pattern = r'^\(\d{3}\) \d{3}-\d{4}$'
+
+        if re.match(pattern,phone_number):
+            return True
+        else:
+            return False
+
+    def validate_email_address(self, email_address):
+
+        pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+
+        if re.match(pattern, email_address):
+            return True
+        else:
+            return False
+
 
 
     """

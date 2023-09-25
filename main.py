@@ -4,7 +4,7 @@ def main():
     phonebook = pb.Phonebook()
     while True:
         
-        print("\n\n\nMain Menu: \n 0. Search Contacts \n 1. Add Contacts \n" + 
+        print("\n\nMain Menu: \n 0. Search Contacts \n 1. Add Contacts \n" + 
               " 2. Update Contacts \n 3. Delete Contacts \n 4. View All Contacts \n 5. Print Contact History \n 6. Sort Contacts \n 7. Group contacts \n 8. Exit")
         user_input = input("Please enter your option here: ")
 
