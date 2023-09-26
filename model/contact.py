@@ -2,6 +2,20 @@ from datetime import datetime
 
 class Contact:
 
+    """
+    Represents a contact with personal information.
+
+    Attributes:
+        first_name (str): The first name of the contact.
+        last_name (str): The last name of the contact.
+        phone_number (str): The phone number of the contact.
+        email_address (str): The email address of the contact.
+        address (str): The address of the contact.
+        create_time (datetime): The timestamp when the contact was created.
+        update_time (datetime): The timestamp of the last update to the contact.
+        contact_history (list): A list of log entries documenting updates to the contact.
+    """
+
     create_time=0
     update_time=0
     
