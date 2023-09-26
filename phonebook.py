@@ -6,6 +6,25 @@ import csv
 
 class Phonebook:
 
+    """
+    The Phonebook class allows users to create, update, delete, search, and perform various operations on contacts.
+
+    Attributes:
+        contacts (list): A list of Contact objects representing the phonebook's contacts.
+
+    Methods:
+        search_contacts(): Searches for contacts based on user-defined criteria.
+        create_contact(): Creates a new contact and adds it to the phonebook.
+        validate_phone_number(phone_number): Validates a phone number's format.
+        validate_email_address(email_address): Validates an email address's format.
+        update_contact(): Updates an existing contact's information.
+        delete_contact(): Deletes an existing contact from the phonebook.
+        print_all_contacts(): Prints details of all contacts in the phonebook.
+        print_contact_history(): Prints the contact history for a specific contact.
+        sort_contacts(): Sorts the contacts in the phonebook.
+        group_contacts(): Groups contacts by the initial letter of their last names.
+    """
+
     def __init__(self):
         self.contacts = [Contact]*0
         print("Starting phonebook application...")
