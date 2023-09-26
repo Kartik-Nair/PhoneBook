@@ -9,11 +9,23 @@ class Phonebook:
     def __init__(self):
         self.contacts = [Contact]*0
         print("Starting phonebook application...")
-
-    """
-    Method for searching contacts using given fields
-    """
+        
     def search_contacts(self):
+
+        """
+        Searches for contacts in the contact list based on user-defined criteria.
+
+        The method allows the user to choose between two search options:
+        - 0: Search by name or phone number. The user can enter characters and view matching results.
+        - 1: Search for contacts added within a specific time frame. The user enters start and end dates.
+
+        Depending on the user's choice, the method displays matching results or contacts 
+        added within the specified time frame.
+
+        Returns:
+            None
+        """
+        
         choice = input("Options: \n 0. Search with name or phone number \n " + 
                        "1. Search for contacts added within specific time frame \n How do you want to search for the contact: ")
         
@@ -61,11 +73,24 @@ class Phonebook:
         else:
             print("Please enter a valid option")
 
-        
-    """
-    Method for creating new contact
-    """
     def create_contact(self):
+
+        """
+        Creates a new contact and adds it to the contact list.
+
+        This method provides two options to create a contact:
+        - Option 0: Manually enter individual contact details 
+        - Option 1: Load contacts in batch from a CSV file.
+
+        Depending on the user's choice, the method either guides the user to enter 
+        individual contact details or loads contacts from a CSV file. 
+        It validates the phone number and email address format, checks for duplicate
+        contacts, and adds the new contacts to the contact list.
+
+        Returns:
+            None
+        """
+
         print("Creating contact...")
 
         print("Options: \n 0. Enter individual contact manually \n 1. Load contacts in batch from csv file")
@@ -161,9 +186,18 @@ class Phonebook:
         else:
             print("Please enter a valid option!")
 
-
     def validate_phone_number(self, phone_number):
         
+        """
+        Validates a phone number to ensure it matches the format '(###) ###-####'.
+
+        Args:
+            phone_number (str): The phone number to be validated.
+
+        Returns:
+            bool: True if the phone number is in the correct format, False otherwise.
+        """
+
         pattern = r'^\(\d{3}\) \d{3}-\d{4}$'
 
         if re.match(pattern,phone_number):
@@ -173,6 +207,16 @@ class Phonebook:
 
     def validate_email_address(self, email_address):
 
+        """
+        Validates an email address to ensure it matches a standard email format.
+
+        Args:
+            email_address (str): The email address to be validated.
+
+        Returns:
+            bool: True if the email address is in a valid format, False otherwise.
+        """
+         
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 
         if re.match(pattern, email_address):
@@ -180,12 +224,26 @@ class Phonebook:
         else:
             return False
 
-
-
-    """
-    Method for updating existing contact if its present in the contact list
-    """
     def update_contact(self):
+
+        """
+        Updates an existing contact's information in the contact list.
+
+        This method prompts the user to enter the first name and last name of the contact to be updated.
+        If the contact is found, the user is presented with a menu to choose which field to update:
+        - 0: First Name
+        - 1: Last Name
+        - 2: Phone Number
+        - 3: Email Address
+        - 4: Address
+
+        After selecting a field to update, the user is prompted to enter the new value for that field.
+        The contact's information is then updated, and the updated contact list is displayed.
+
+        If the specified contact does not exist in the list, a message is displayed indicating that
+        the contact was not found.
+        """
+
         first_name = input("Enter first name of contact to be updated: ")
         last_name = input("Enter last name of contact to be updated: ")
         found_contact=False
@@ -216,11 +274,22 @@ class Phonebook:
         if found_contact==False:
                 print("Contact does not exist, please check the first and last name you entered.")
 
-        
-    """
-    Method for deleting existing contact from the contact list
-    """
     def delete_contact(self):
+
+        """
+        Deletes an existing contact from the contact list.
+
+        This method prompts the user to enter the first name and last name of the contact to be deleted.
+        If the contact is found in the list, it is removed from the list, and a confirmation message
+        is displayed indicating that the contact has been deleted.
+
+        If the specified contact does not exist in the list, a message is displayed indicating that
+        the contact was not found.
+
+        Returns:
+            None
+        """
+
         first_name = input("Enter first name of contact to be deleted: ")
         last_name = input("Enter last name of contact to be deleted: ")
         found_contact=False
@@ -234,11 +303,19 @@ class Phonebook:
         if found_contact==False:
                 print("Contact does not exist, please check the first and last name you entered.")
 
-
-    """
-    Method to print all contacts currently in the contact list
-    """
     def print_all_contacts(self):
+
+        """
+        Prints the details of all contacts in the contact list.
+
+        This method displays the details of each contact in the contact list using a counter 
+        to keep track of contact ids displayed. 
+        If the contact list is empty, it notifies the user to add new contacts.
+
+        Returns:
+            None
+        """
+
         counter = 0
         if(self.contacts.count==0):
             print("Contact list is empty, please add new contacts.")
@@ -250,8 +327,23 @@ class Phonebook:
                 counter+=1
                 print("\n \n")
 
-
     def print_contact_history(self):
+
+        """
+        Prints the contact history for a specific contact.
+
+        This method prompts the user to enter the first name and last name of a contact 
+        to retrieve their contact history.
+        If the contact is found in the contact list, it displays their contact history, 
+        which may include details of previous interactions or communications.
+
+        If the specified contact does not exist in the list, a message is displayed indicating 
+        that the contact was not found.
+
+        Returns:
+            None
+        """
+        
         first_name = input("Enter first name of contact: ")
         last_name = input("Enter last name of contact: ")
         found_contact=False
@@ -263,8 +355,22 @@ class Phonebook:
         if found_contact==False:
                 print("Contact does not exist, please check the first and last name you entered.")
 
-    
     def sort_contacts(self):
+
+        """
+        Sorts the contacts in the contact list based on the user's choice.
+
+        This method allows the user to choose between two sorting options:
+        - 0: Ascending order based on first names.
+        - 1: Descending order based on first names.
+
+        Depending on the user's choice, it sorts the contacts accordingly and provides feedback 
+        to the user.
+
+        Returns:
+            None
+        """
+    
         choice=input("\n\nOptions: \n0. Ascending order \n1. Descending order \n\nHow do you want to sort: ")
         
         if choice=="0":
@@ -276,8 +382,16 @@ class Phonebook:
         else:
             print("Please enter a valid option")
 
-
     def group_contacts(self):
+
+        """
+        This method sorts the contacts based on the initial letter of their last names, 
+        effectively grouping them alphabetically. 
+
+        Returns:
+            None
+        """
+        
         print("Grouping contacts by initial letter of last name")
         self.contacts.sort(key=lambda contact:contact.get_last_name()[0] )
         print("Contacts successfully grouped. Press 4 to view all contacts.")

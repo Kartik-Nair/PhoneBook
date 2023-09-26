@@ -1,6 +1,16 @@
 import phonebook as pb
 
 def main():
+
+    """
+    Main function to manage a phonebook application.
+
+    This function creates a phonebook object and presents a menu to the user to perform various operations.
+    The user can select an option by entering the corresponding number. 
+    The chosen operation is executed, and the user is prompted for further input 
+    until they choose to exit the program.
+    """
+
     phonebook = pb.Phonebook()
     while True:
         
