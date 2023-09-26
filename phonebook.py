@@ -159,7 +159,7 @@ class Phonebook:
                 self.print_all_contacts()
         
         elif batch_load=="1":
-            print("We have sample_contacts.csv file already present in data folder. You can copy your required csv file to that path first.")
+            print("\n We have sample_contacts.csv file already present in data folder. \n You can copy your required csv file to that path first.")
             file_name = input("Now enter the file name you want to load from the data folder:")
             csv_file_path = "data/"+file_name
             try:
